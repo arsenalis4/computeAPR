@@ -1,0 +1,25 @@
+{
+  "name": "computeapr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arsenalis4/computeAPR.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arsenalis4/computeAPR/issues"
+  },
+  "homepage": "https://github.com/arsenalis4/computeAPR#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "bignumber": "^1.1.0",
+    "graphql-request": "^6.1.0"
+  }
+}
