@@ -23,13 +23,13 @@ const main = async () => {
         return liquidity
     }
 
-    const poolID = "0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8"
+    const poolID = "0x4e68ccd3e89f51c3074ca5072bbac773960dfa36"
     const pool = await getPoolFromId(poolID);
     const token0 = pool.token0;
     const token1 = pool.token1;
     const poolTicks = await getPoolTicks(poolID);
-    const token0PriceChart = await getPriceChart(token0);
-    const token1PriceChart = await getPriceChart(token1);
+    const token0PriceChart = await getPriceChart(token0.id);
+    const token1PriceChart = await getPriceChart(token1.id);
     const volume24H = await getVolumn24H(pool.id);
 
     const price = getPrice(token0PriceChart, token1PriceChart, pool);

@@ -1,5 +1,6 @@
 const { request, gql } = require('graphql-request');
 const axios = require("axios");
+const tokenAddressMapping = require("./tokenAddressMapping.json");
 
 const UNISWAP_V3_SUBGRAPH_URL = "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3";
 
@@ -14,6 +15,12 @@ const queryUniswap = async (query, variables) => {
         return response;
     }
 }
+
+const getToken = contractAddress => {
+    const mapping = tokenAddressMapping.ethereum;
+    return mapping[contractAddress]
+}
+
 
 const getVolumn24H = async poolAddress => {
     const { poolDayDatas } = await queryUniswap(gql`{
@@ -42,18 +49,12 @@ const getPoolTicks = async poolAddress => {
 }
 
 const getPriceChart = async (
-    token,
+    contractAddress,
     queryPeriod = "30"
 ) => {
-    if (!token) return null
+    const token = getToken(contractAddress);
 
-    if(token.id === '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'){
-        token.id = 'usd-coin';
-    } else if(token.id === '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'){
-        token.id = 'weth'
-    } else{
-        token.id = token.id;
-    }
+    if (!token) return null;
 
     const marketChartRes = await axios.get(
         `https://api.coingecko.com/api/v3/coins/${token.id}/market_chart?vs_currency=usd&days=${queryPeriod}`
